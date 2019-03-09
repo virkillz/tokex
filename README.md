@@ -2,6 +2,8 @@
 
 Tokenomy Exchange API library for elixir
 
+![Tokenomy](https://www.tokenomy.com/images/tokenomy/LOGO_TOKENOMY.png)
+
 [Tokenomy](https://www.tokenomy.com) is crypto exchange and ICO platform based in Singapore.
 
 The purpose of this library is to provide simple api wrapper which will always give you familiar tupple as return ``` {:ok, result} or {:error, reason} ```, so you can simply pattern match your return and focus on your automated trading logic right away. All the result will be a Map.
