@@ -313,6 +313,10 @@ defmodule Tokex do
     tapi_call(params)
   end
 
+  @doc """
+  Get your trade history.   
+
+  """
   def trade_history(pair, option \\ []) do
     optional_params = Enum.into(option, %{})
 
@@ -323,6 +327,11 @@ defmodule Tokex do
     tapi_call(params)
   end
 
+
+  @doc """
+  Get your order history. 
+
+  """
   def order_history(pair, option \\ []) do
     optional_params = Enum.into(option, %{})
 
@@ -333,14 +342,27 @@ defmodule Tokex do
     tapi_call(params)
   end
 
+
+  @doc """
+  Get detail of your order. You need to specify your order_id and pair.
+
+  """
   def get_order(pair, order_id) do
     tapi_call(%{method: "getOrder", pair: pair, order_id: order_id})
   end
 
+  @doc """
+  Cancel your order. You need to specify your order_id, pair and type ("buy" or "sell").
+
+  """
   def cancel_order(pair, order_id, type) do
     tapi_call(%{method: "cancelOrder", pair: pair, order_id: order_id, type: type})
   end
 
+  @doc """
+  Withdraw your coin to external address. Your API key need to have withdraw permission. You can enable it from your Tokenomy profile page.
+
+  """
   def withdraw_coin(currency, withdraw_address, withdraw_amount, request_id, option \\ []) do
     optional_params = Enum.into(option, %{})
 
