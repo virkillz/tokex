@@ -109,5 +109,5 @@ config :tokex,
 Done! Now you can use it inside your code.
 
 
-The complete docs can be found at [https://hexdocs.pm/tokex](https://hexdocs.pm/tokex).
+The complete docs can be found at [https://hexdocs.pm/tokex](https://hexdocs.pm/tokex/readme.html#content).
 

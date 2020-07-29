@@ -33,7 +33,7 @@ defmodule Tokex.MixProject do
   defp deps do
     [
       {:httpoison, "~> 1.4"},
-      {:poison, "~> 2.2 or ~> 3.0"},
+      {:jason, "~> 1.0"},
       {:earmark, ">= 0.0.0", only: :dev},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]

@@ -1,5 +1,5 @@
 defmodule Tokex do
-  @tapiurl "https://exchange.tokenomy.com/tapi"
+  @domain "https://exchange.tokenomy.com/"
 
   @moduledoc """
   Don't forget to follow the installation isntruction to use this library. You need to get API key and secret from your [Tokenomy profile page](https://exchange.tokenomy.com). 
@@ -64,7 +64,7 @@ defmodule Tokex do
   """
   def summaries() do
     case HTTPoison.get("https://exchange.tokenomy.com/api/summaries") do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> {:ok, Poison.decode!(body)}
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> {:ok, Jason.decode!(body)}
       {:ok, %HTTPoison.Response{status_code: status}} -> {:error, "HTTP Status #{status}"}
       _ -> {:error, "Unsuccessfull"}
     end
@@ -91,7 +91,7 @@ defmodule Tokex do
          }
        }}
 
-  """  
+  """
   def ticker(pair) do
     call_public("ticker", pair)
   end
@@ -131,7 +131,7 @@ defmodule Tokex do
          ...
        ]}
 
-  """  
+  """
   def trades(pair) do
     call_public("trades", pair)
   end
@@ -263,7 +263,7 @@ defmodule Tokex do
            },
            "success" => 1
          }}
-  
+
   You can also specify 
 
 
@@ -327,7 +327,6 @@ defmodule Tokex do
     tapi_call(params)
   end
 
-
   @doc """
   Get your order history. 
 
@@ -341,7 +340,6 @@ defmodule Tokex do
 
     tapi_call(params)
   end
-
 
   @doc """
   Get detail of your order. You need to specify your order_id and pair.
@@ -390,9 +388,9 @@ defmodule Tokex do
     sign = Base.encode16(:crypto.hmac(:sha512, apisecret, postdata), case: :lower)
     headers = [Key: apikey, Sign: sign, "Content-Type": "application/x-www-form-urlencoded"]
 
-    case HTTPoison.post(@tapiurl, postdata, headers) do
+    case HTTPoison.post(@domain <> "/tapi", postdata, headers) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        Poison.decode(body)
+        Jason.decode(body)
 
       {:ok, %HTTPoison.Response{status_code: status}} ->
         {:error, "Error while call the API. HTTP Status #{status}"}
@@ -403,8 +401,8 @@ defmodule Tokex do
   end
 
   defp call_public(type, pair) do
-    case HTTPoison.get("https://exchange.tokenomy.com/api/#{pair}/#{type}") do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> {:ok, Poison.decode!(body)}
+    case HTTPoison.get(@domain <> "/api/#{pair}/#{type}") do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> {:ok, Jason.decode!(body)}
       {:ok, %HTTPoison.Response{status_code: status}} -> {:error, "HTTP Status #{status}"}
       _ -> {:error, "Unsuccessfull"}
     end
